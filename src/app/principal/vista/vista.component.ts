@@ -19,11 +19,25 @@ export class VistaComponent {
 
   //ejecutar mmetodo getuserall al cargar el componente
   ngOnInit(){
+    /* 
+    ejecutar metodo getUsersAll y obtener json devuelto por la api
     this.userService.getUsersAll().subscribe({
       next: (userAll:Users[])=> this.vistaListado=userAll, //el userAll dentro del () puede tener cualquier nombre, solo importa que sea de tipo Users[]
       error:(error)=>console.error(error),
       complete:()=> console.info('completed!')
+    }) */
+
+    //ejecutar el metodo getUsersAllInterceptor que captura la comunicacion, no un resultado
+    //de toda la comunicaion solo queremos el body (e json esta dentro del body)
+    this.userService.getUsersAllInterceptor().subscribe({
+      next: (response:any)=> {
+        this.vistaListado=response.body;
+        console.log(response);
+      },
+      error:(error)=>console.error(error),
+      complete:()=> console.info('completed!')
     })
+
   }
 
 }

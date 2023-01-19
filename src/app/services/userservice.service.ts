@@ -24,7 +24,6 @@ export class UserserviceService {
   //la interface en models/user.ts se llama Users y es una matriz, por eso Users[]
   getUsersAll():Observable<Users[]>{
     return this.http.get<Users[]>(this.apiUser)
-
   }
 
 
@@ -37,6 +36,12 @@ export class UserserviceService {
 //con esto le enviamos info a la api
   postUser(user: Users):Observable<Users>{
     return this.http.post<Users>(this.apiUser,user)
+  }
+
+
+  //metodo get interceptor, no es igual a getusersall()(en ese se obtiene json), aqui solo queremos hacer get
+  getUsersAllInterceptor():Observable<any>{
+    return this.http.get(this.apiUser,{observe:'response'})
   }
 
 }
